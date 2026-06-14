@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Get Together 2026</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --bg:#F6F4EE;
+    --primary:#234B43;
+    --glass:rgba(255,255,255,0.45);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Roboto',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:var(--bg);
+    overflow:hidden;
+}
+
+.container{
+    width:100%;
+    max-width:700px;
+    padding:30px;
+    text-align:center;
+    animation:fadeIn 1s ease;
+}
+
+h1{
+    color:var(--primary);
+    font-size:3rem;
+    font-weight:700;
+    margin-bottom:50px;
+    letter-spacing:.5px;
+}
+
+.cards{
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+}
+
+.card{
+    text-decoration:none;
+    color:var(--primary);
+
+    background:var(--glass);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.3);
+
+    padding:30px;
+    border-radius:24px;
+
+    font-size:1.4rem;
+    font-weight:500;
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.08);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        background .3s ease;
+}
+
+.card:hover{
+    transform:translateY(-6px) scale(1.02);
+
+    box-shadow:
+        0 20px 40px rgba(0,0,0,.12);
+
+    background:rgba(255,255,255,.65);
+}
+
+.card:active{
+    transform:scale(.98);
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@media(max-width:768px){
+
+    h1{
+        font-size:2.2rem;
+        margin-bottom:40px;
+    }
+
+    .card{
+        padding:25px;
+        font-size:1.2rem;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Get Together 2026</h1>
+
+    <div class="cards">
+
+        <a href="contributions.html" class="card">
+            Contributions
+        </a>
+
+        <a href="expenses.html" class="card">
+            Expenses
+        </a>
+
+        <a href="abstract.html" class="card">
+            Abstract
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
