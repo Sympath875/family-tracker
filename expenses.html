@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expenses - Get Together 2026</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#F6F4EE;
+  --primary:#234B43;
+  --soft-green:#2E7D32;
+  --soft-red:#D95C5C;
+  --text:#1E293B;
+  --card:rgba(255,255,255,.78);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Roboto',sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  padding:20px;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+}
+
+.hero{
+  text-align:center;
+  padding:25px 0 35px;
+}
+
+.hero h1{
+  color:var(--primary);
+  font-size:2.4rem;
+}
+
+.summary{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+  margin-bottom:35px;
+}
+
+.card{
+  background:var(--card);
+  backdrop-filter:blur(14px);
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 10px 30px rgba(0,0,0,.05);
+}
+
+.card-value{
+  font-size:2rem;
+  font-weight:700;
+}
+
+.spent-value{
+  color:var(--soft-red);
+}
+
+.balance-value{
+  color:var(--soft-green);
+}
+
+.card-label{
+  margin-top:8px;
+  color:#64748b;
+}
+
+.section-title{
+  margin-bottom:20px;
+  color:var(--primary);
+}
+
+.expense-card{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:white;
+  border-radius:18px;
+  padding:18px 24px;
+  margin-bottom:12px;
+  box-shadow:0 5px 20px rgba(0,0,0,.05);
+  transition:transform .2s ease;
+}
+
+.expense-card:hover{
+  transform:translateY(-2px);
+}
+
+.expense-purpose{
+  font-weight:500;
+  font-size:1rem;
+}
+
+.expense-amount{
+  color:var(--soft-red);
+  font-weight:700;
+  font-size:1.1rem;
+}
+
+.last-updated{
+  text-align:center;
+  margin-top:25px;
+  color:#64748b;
+  font-size:.9rem;
+}
+
+@media(max-width:768px){
+  .hero h1{
+    font-size:2rem;
+  }
+
+  .expense-card{
+    padding:16px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="hero">
+    <h1>Expenses</h1>
+  </div>
+
+  <div class="summary">
+
+    <div class="card">
+      <div id="totalSpent" class="card-value spent-value">₹0</div>
+      <div class="card-label">Total Spent</div>
+    </div>
+
+    <div class="card">
+      <div id="balance" class="card-value balance-value">₹0</div>
+      <div class="card-label">Balance</div>
+    </div>
+
+  </div>
+
+  <h2 class="section-title">Expense Ledger</h2>
+
+  <div id="expenseContainer"></div>
+
+  <div id="lastUpdated" class="last-updated">
+    Last updated: --
+  </div>
+
+</div>
+
+<script>
+
+/*
+=====================================================
+GOOGLE SHEETS CONFIGURATION
+
+Expense Sheet Format:
+
+Column A -> Purpose
+Column B -> Amount
+
+Example:
+
+Purpose,Amount
+Hall Booking,5000
+Food Advance,3000
+Printing,1200
+
+Keep newest entries at the TOP of the sheet.
+=====================================================
+*/
+
+const EXPENSE_URL = "https://docs.google.com/spreadsheets/d/1qTkwlWyNS2w9KrJizZiJB5hzr17G5uGFt20vMf0p1-8/export?format=csv&gid=1425930218";
+
+/*
+=====================================================
+OPTIONAL:
+
+If you want automatic balance calculation:
+
+1. Put your Contributions sheet CSV URL below.
+2. Column D should contain Paid Amount
+   (same structure as your contributions page)
+
+Otherwise leave as-is and Balance will show ₹0.
+=====================================================
+*/
+
+const CONTRIBUTION_URL = "https://docs.google.com/spreadsheets/d/1qTkwlWyNS2w9KrJizZiJB5hzr17G5uGFt20vMf0p1-8/export?format=csv&gid=0";
+
+let expenses = [];
+let totalCollected = 0;
+
+async function loadExpenses(){
+
+  if(EXPENSE_URL.includes("PASTE")) return;
+
+  const response =
+    await fetch(EXPENSE_URL + "&t=" + Date.now());
+
+  const csv = await response.text();
+
+  const rows = csv
+    .trim()
+    .split(/\r?\n/)
+    .slice(1);
+
+  expenses = rows.map(row=>{
+
+    const cols = row.split(",");
+
+    return {
+      purpose:(cols[0] || "").trim(),
+      amount:Number(cols[1]) || 0
+    };
+  });
+}
+
+async function loadContributions(){
+
+  if(CONTRIBUTION_URL.includes("PASTE")){
+    totalCollected = 0;
+    return;
+  }
+
+  const response =
+    await fetch(CONTRIBUTION_URL + "&t=" + Date.now());
+
+  const csv = await response.text();
+
+  const rows = csv
+    .trim()
+    .split(/\r?\n/)
+    .slice(1);
+
+  totalCollected = rows.reduce((sum,row)=>{
+
+    const cols = row.split(",");
+
+    return sum + (Number(cols[3]) || 0);
+
+  },0);
+}
+
+function renderExpenses(){
+
+  const container =
+    document.getElementById("expenseContainer");
+
+  container.innerHTML = "";
+
+  const totalSpent =
+    expenses.reduce((s,e)=>s+e.amount,0);
+
+  const balance =
+    totalCollected - totalSpent;
+
+  document.getElementById("totalSpent")
+    .textContent =
+      `₹${totalSpent.toLocaleString()}`;
+
+  document.getElementById("balance")
+    .textContent =
+      `₹${balance.toLocaleString()}`;
+
+  expenses.forEach(exp=>{
+
+    container.innerHTML += `
+      <div class="expense-card">
+
+        <div class="expense-purpose">
+          ${exp.purpose}
+        </div>
+
+        <div class="expense-amount">
+          ₹${exp.amount.toLocaleString()}
+        </div>
+
+      </div>
+    `;
+  });
+
+  document.getElementById("lastUpdated")
+    .textContent =
+      "Last updated: " +
+      new Date().toLocaleString();
+}
+
+async function refreshData(){
+
+  await loadExpenses();
+  await loadContributions();
+
+  renderExpenses();
+}
+
+refreshData();
+
+setInterval(refreshData,60000);
+
+</script>
+
+</body>
+</html>
