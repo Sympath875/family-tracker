@@ -164,41 +164,7 @@ body{
 
 <script>
 
-/*
-=====================================================
-GOOGLE SHEETS CONFIGURATION
-
-Expense Sheet Format:
-
-Column A -> Purpose
-Column B -> Amount
-
-Example:
-
-Purpose,Amount
-Hall Booking,5000
-Food Advance,3000
-Printing,1200
-
-Keep newest entries at the TOP of the sheet.
-=====================================================
-*/
-
 const EXPENSE_URL = "https://docs.google.com/spreadsheets/d/1qTkwlWyNS2w9KrJizZiJB5hzr17G5uGFt20vMf0p1-8/export?format=csv&gid=1425930218";
-
-/*
-=====================================================
-OPTIONAL:
-
-If you want automatic balance calculation:
-
-1. Put your Contributions sheet CSV URL below.
-2. Column D should contain Paid Amount
-   (same structure as your contributions page)
-
-Otherwise leave as-is and Balance will show ₹0.
-=====================================================
-*/
 
 const CONTRIBUTION_URL = "https://docs.google.com/spreadsheets/d/1qTkwlWyNS2w9KrJizZiJB5hzr17G5uGFt20vMf0p1-8/export?format=csv&gid=0";
 
@@ -227,7 +193,7 @@ async function loadExpenses(){
       purpose:(cols[0] || "").trim(),
       amount:Number(cols[1]) || 0
     };
-  });
+  }).reverse();
 }
 
 async function loadContributions(){
