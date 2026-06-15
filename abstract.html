@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abstract - Get Together 2026</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --bg:#F6F4EE;
+  --primary:#234B43;
+  --green:#2E7D32;
+  --red:#D95C5C;
+  --text:#1E293B;
+  --card:rgba(255,255,255,.78);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Roboto',sans-serif;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    margin:0;
+    padding:20px;
+}
+
+.container{
+    max-width:1400px;
+    margin:auto;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+.hero{
+    text-align:center;
+    padding:30px 20px;
+}
+
+.hero h1{
+    font-size:3rem;
+    color:var(--primary);
+    font-weight:700;
+}
+
+.summary{
+    display:flex;
+    gap:20px;
+    margin-top:20px;
+}
+
+.summary .card{
+    flex:1;
+    min-width:0;
+}
+
+.card{
+  background:var(--card);
+  backdrop-filter:blur(14px);
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 10px 30px rgba(0,0,0,.05);
+}
+
+.card-value{
+  font-size:2rem;
+  font-weight:700;
+}
+
+.collected{
+  color:var(--primary);
+}
+
+.spent{
+  color:var(--red);
+}
+
+.balance{
+  color:var(--green);
+}
+
+.pending{
+  color:var(--red);
+}
+
+.card-label{
+  margin-top:8px;
+  color:#64748b;
+}
+
+.progress-section{
+  display:flex;
+  justify-content:center;
+  margin-top:20px;
+}
+
+.progress-ring{
+  width:240px;
+  height:240px;
+  position:relative;
+}
+
+.progress-ring svg{
+  transform:rotate(-90deg);
+}
+
+.progress-text{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+.progress-text h2{
+  font-size:2rem;
+  color:var(--primary);
+}
+
+.progress-text p{
+  margin-top:8px;
+  color:#64748b;
+}
+
+.last-updated{
+  text-align:center;
+  margin-top:35px;
+  color:#64748b;
+}
+
+@media (max-width:768px){
+
+    .summary{
+        flex-direction:column;
+    }
+
+    .hero h1{
+        font-size:2rem;
+    }
+
+    .card-value{
+        font-size:1.7rem;
+    }
+
+    .progress-ring{
+        width:180px;
+        height:180px;
+    }
+}
+
+footer{
+    margin-top:auto;
+    text-align:center;
+    padding:40px 0 20px;
+}
+
+.footer-logo{
+    width:120px;
+    height:auto;
+    opacity:0.9;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="hero">
+    <h1>Get-together 2026</h1>
+    <p>Abstract</p>
+  </div>
+
+  <div class="summary">
+
+
+<div class="card">
+  <div id="collected" class="card-value collected">₹0</div>
+  <div class="card-label">Collected</div>
+</div>
+
+<div class="card">
+  <div id="spent" class="card-value spent">₹0</div>
+  <div class="card-label">Spent</div>
+</div>
+
+<div class="card">
+  <div id="balance" class="card-value balance">₹0</div>
+  <div class="card-label">Balance</div>
+</div>
+
+<div class="card">
+  <div id="familiesPaid" class="card-value collected">0 / 0</div>
+  <div class="card-label">Families Paid</div>
+</div>
+
+<div class="card">
+  <div id="pendingAmount" class="card-value pending">₹0</div>
+  <div class="card-label">Pending Collection</div>
+</div>
+
+
+  </div>
+
+  <div class="progress-section">
+
+
+<div class="progress-ring">
+
+  <svg width="240" height="240">
+
+    <circle
+      cx="120"
+      cy="120"
+      r="95"
+      stroke="#e5e7eb"
+      stroke-width="14"
+      fill="none"/>
+
+    <circle
+      id="progressCircle"
+      cx="120"
+      cy="120"
+      r="95"
+      stroke="#234B43"
+      stroke-width="14"
+      fill="none"
+      stroke-linecap="round"
+      stroke-dasharray="597"
+      stroke-dashoffset="597"/>
+
+  </svg>
+
+  <div class="progress-text">
+    <h2 id="percent">0%</h2>
+    <p>Collection Progress</p>
+  </div>
+
+</div>
+
+
+  </div>
+
+  <div id="lastUpdated" class="last-updated">
+    Last updated: --
+  </div>
+
+</div>
+
+<script>
+
+/*
+==================================================
+
+CONTRIBUTION SHEET FORMAT
+
+Column A = ID
+Column B = Family Name
+Column C = Expected Amount
+Column D = Paid Amount
+
+==================================================
+*/
+
+const CONTRIBUTION_URL =
+"PASTE_CONTRIBUTION_CSV_URL_HERE";
+
+/*
+==================================================
+
+EXPENSE SHEET FORMAT
+
+Column A = Purpose
+Column B = Amount
+
+==================================================
+*/
+
+const EXPENSE_URL =
+"PASTE_EXPENSE_CSV_URL_HERE";
+
+async function loadData(){
+
+  if(
+    CONTRIBUTION_URL.includes("PASTE") ||
+    EXPENSE_URL.includes("PASTE")
+  ){
+    return;
+  }
+
+  const [contributionResponse, expenseResponse] =
+    await Promise.all([
+      fetch(CONTRIBUTION_URL + "&t=" + Date.now()),
+      fetch(EXPENSE_URL + "&t=" + Date.now())
+    ]);
+
+  const contributionCSV =
+    await contributionResponse.text();
+
+  const expenseCSV =
+    await expenseResponse.text();
+
+  const contributionRows =
+    contributionCSV
+      .trim()
+      .split(/\\r?\\n/)
+      .slice(1);
+
+  const expenseRows =
+    expenseCSV
+      .trim()
+      .split(/\\r?\\n/)
+      .slice(1);
+
+  let totalCollected = 0;
+  let totalExpected = 0;
+  let paidFamilies = 0;
+
+  contributionRows.forEach(row => {
+
+    const cols = row.split(",");
+
+    const expected =
+      Number(cols[2]) || 0;
+
+    const paid =
+      Number(cols[3]) || 0;
+
+    totalExpected += expected;
+    totalCollected += paid;
+
+    if(expected > 0 && paid >= expected){
+      paidFamilies++;
+    }
+
+  });
+
+  let totalSpent = 0;
+
+  expenseRows.forEach(row => {
+
+    const cols = row.split(",");
+
+    totalSpent +=
+      Number(cols[1]) || 0;
+
+  });
+
+  const balance =
+    totalCollected - totalSpent;
+
+  const pendingAmount =
+    totalExpected - totalCollected;
+
+  const progress =
+    totalExpected
+      ? Math.round(
+          (totalCollected / totalExpected) * 100
+        )
+      : 0;
+
+  document.getElementById("collected")
+    .textContent =
+      `₹${totalCollected.toLocaleString()}`;
+
+  document.getElementById("spent")
+    .textContent =
+      `₹${totalSpent.toLocaleString()}`;
+
+  document.getElementById("balance")
+    .textContent =
+      `₹${balance.toLocaleString()}`;
+
+  document.getElementById("pendingAmount")
+    .textContent =
+      `₹${pendingAmount.toLocaleString()}`;
+
+  document.getElementById("familiesPaid")
+    .textContent =
+      `${paidFamilies} / ${contributionRows.length}`;
+
+  document.getElementById("percent")
+    .textContent =
+      progress + "%";
+
+  const circumference = 597;
+
+  const offset =
+    circumference -
+    (progress / 100) * circumference;
+
+  document.getElementById("progressCircle")
+    .style.strokeDashoffset =
+      offset;
+
+  document.getElementById("lastUpdated")
+    .textContent =
+      "Last updated: " +
+      new Date().toLocaleString();
+
+}
+
+loadData();
+
+/* Refresh every 60 seconds */
+setInterval(loadData, 60000);
+
+</script>
+
+</body>
+</html>
