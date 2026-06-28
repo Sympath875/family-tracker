@@ -3,232 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>RoK 2026</title>
-
+<title>Get Together 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-
 <style>
-
-:root{
-    --bg:#F6F4EE;
-    --primary:#234B43;
-    --glass:rgba(255,255,255,0.45);
-}
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Roboto',sans-serif;
-}
-
+:root{--bg:#F6F4EE;--primary:#234B43;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
 body{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    background-image:url("bg.png");
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    background-attachment:fixed;
-
-    overflow:hidden;
-    position:relative;
-}
-
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.10),
-            rgba(255,255,255,.03)
-        );
-
-
-    pointer-events:none;
-}
-
-.container{
-    width:100%;
-    max-width:700px;
-    padding:30px;
-    text-align:center;
-    animation:fadeIn 1s ease;
-}
-
-h1{
-    color:#FFFFFF;
-    font-size:3.2rem;
-    font-weight:800;
-    letter-spacing:1px;
-    margin-bottom:80px;
-    text-shadow:
-        0 2px 8px rgba(0,0,0,.45),
-        0 12px 30px rgba(0,0,0,.25);
-}
-
-.cards{
-    display:flex;
-    flex-direction:column;
-    gap:25px;
-}
-
+min-height:100vh;display:flex;justify-content:center;align-items:center;
+background-image:url("bg.jpg");background-size:cover;background-position:center;background-repeat:no-repeat;background-attachment:fixed;
+overflow:hidden;position:relative;}
+body::before{content:"";position:fixed;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.03));pointer-events:none;}
+.container{width:100%;max-width:700px;padding:30px;text-align:center;animation:fadeIn 1s ease;}
+h1{color:#302F2F;font-size:3.2rem;font-weight:800;letter-spacing:1px;margin-bottom:30px;text-shadow:0 2px 8px rgba(0,0,0,.45),0 12px 30px rgba(0,0,0,.25);}
+#countdown{color:#302F2F;margin-bottom:40px;font-weight:600;text-shadow:0 2px 8px rgba(0,0,0,.45);}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
 .card{
-    position:relative;
-
-    text-decoration:none;
-    color:var(--primary);
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.38),
-            rgba(255,255,255,.12)
-        );
-
-    backdrop-filter:blur(30px) saturate(180%);
-    -webkit-backdrop-filter:blur(30px) saturate(180%);
-
-    border:1px solid rgba(255,255,255,.30);
-
-    padding:30px;
-    border-radius:28px;
-
-    font-size:1.4rem;
-    font-weight:500;
-
-    overflow:hidden;
-
-    box-shadow:
-        0 8px 32px rgba(0,0,0,.12),
-        inset 0 1px 1px rgba(255,255,255,.45),
-        inset 0 -1px 1px rgba(255,255,255,.08);
-
-    transition:
-        transform .35s ease,
-        box-shadow .35s ease,
-        background .35s ease;
-}
-
-.card::before{
-    content:"";
-
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:45%;
-
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(255,255,255,.55),
-            rgba(255,255,255,0)
-        );
-
-    pointer-events:none;
-}
-
-.card::after{
-    content:"";
-
-    position:absolute;
-    top:-60%;
-    left:-120%;
-
-    width:80%;
-    height:220%;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.35),
-            transparent
-        );
-
-    transform:rotate(25deg);
-
-    transition:left .8s ease;
-}
-
-.card:hover{
-    transform:translateY(-8px) scale(1.03);
-
-    box-shadow:
-        0 25px 50px rgba(0,0,0,.18),
-        inset 0 1px 1px rgba(255,255,255,.5);
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.48),
-            rgba(255,255,255,.18)
-        );
-}
-
-.card:hover::after{
-    left:180%;
-}
-
-.card:active{
-    transform:scale(.98);
-}
-
-@keyframes fadeIn{
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
+position:relative;text-decoration:none;color:var(--primary);
+background:linear-gradient(135deg,rgba(255,255,255,.38),rgba(255,255,255,.12));
+backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);
+border:1px solid rgba(255,255,255,.30);padding:22px;border-radius:24px;
+font-size:1.1rem;font-weight:500;overflow:hidden;
+box-shadow:0 8px 32px rgba(0,0,0,.12),inset 0 1px 1px rgba(255,255,255,.45),inset 0 -1px 1px rgba(255,255,255,.08);
+transition:transform .35s ease,box-shadow .35s ease,background .35s ease;}
+.card:hover{transform:translateY(-8px) scale(1.03);}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 @media(max-width:768px){
-
-    h1{
-        font-size:2.2rem;
-        margin-bottom:40px;
-    }
-
-    .card{
-        padding:25px;
-        font-size:1.2rem;
-    }
-
+h1{font-size:2.2rem;}
+.container{padding:20px;}
+.cards{grid-template-columns:repeat(2,1fr);gap:15px;}
+.card{padding:18px;font-size:1rem;}
 }
-
 </style>
 </head>
-
 <body>
-
 <div class="container">
-
-    <h1>Get Together 2026</h1>
-
-    <div class="cards">
-
-        <a href="contributions.html" class="card">
-            Contributions
-        </a>
-
-        <a href="expenses.html" class="card">
-            Expenses
-        </a>
-
-    </div>
-
+<h1>Get-together 2026</h1>
+<div id="countdown">
+<div></div>
+<div id="timer"></div>
 </div>
-
-</body>
-</html>
+<div class="cards">
+<a href="invitation.html" class="card">📜 Invitation</a>
+<a href="contributions.html" class="card">💰 Contributions</a>
+<a href="expenses.html" class="card">🧾 Expenses</a>
+<a href="summary.html" class="card">📊 Summary</a>
+<a href="venue.html" class="card">📍 Venue</a>
+<a href="schedule.html" class="card">📅 Schedule</a>
+<a href="gallery.html" class="card">⋆.📷˚ Gallery</a>
+<a href="abstract.html" class="card">ℹ️ </a>
+</div></div>
+<script>
+const eventDate=new Date("August 08, 2026 09:00:00").getTime();
+function updateCountdown(){
+const now=new Date().getTime(),d=eventDate-now;
+if(d<=0){timer.innerHTML="🎉 The Reunion Has Begun!";return;}
+const days=Math.floor(d/86400000);
+const hrs=Math.floor((d%86400000)/3600000);
+const mins=Math.floor((d%3600000)/60000);
+const secs=Math.floor((d%60000)/1000);
+timer.innerHTML=`${days}d ${hrs}h ${mins}m ${secs}s`;
+}
+updateCountdown();setInterval(updateCountdown,1000);
+</script>
+</body></html>
