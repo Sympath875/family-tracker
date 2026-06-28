@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RoK 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{--bg:#F6F4EE;--primary:#234B43;--card:rgba(255,255,255,.82);--text:#1E293B}*{margin:0;padding:0;box-sizing:border-box;font-family:Roboto,sans-serif}body{background:var(--bg);color:var(--text);padding:20px}.container{max-width:1200px;margin:auto;min-height:100vh;display:flex;flex-direction:column}
+
+.hero{text-align:center;padding:40px 20px}
+.hero h1{font-size:2.6rem;color:var(--primary)}
+.hero p{margin-top:10px;color:#64748b}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:25px}
+.card{
+    background:var(--card);
+    border-radius:20px;
+    padding:24px;
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
+    min-height:220px;
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        background .35s ease;
+}
+
+.card:hover{
+    transform:translateY(-8px) scale(1.02);
+    box-shadow:0 24px 50px rgba(35,75,67,.20);
+}
+
+.card h3{
+    color:var(--primary);
+    margin-bottom:14px;
+}
+
+.card p{
+    line-height:1.7;
+    color:#475569;
+}
+
+.map-card{
+    padding:0;
+    overflow:hidden;
+}
+
+.map-card a{
+    display:block;
+    width:100%;
+    height:100%;
+}
+
+.map-card iframe{
+    width:100%;
+    height:220px;
+    border:0;
+    pointer-events:none;
+}
+
+footer{
+    margin-top:auto;
+    text-align:center;
+    padding:40px 0 20px;
+}
+.footer-logo{width:50px}@media(max-width:768px){.grid{grid-template-columns:1fr}.hero h1{font-size:2rem}}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="hero">
+<h1>Get-together 2026</h1>
+<p>Venue</p>
+</div>
+
+<div class="grid"><div class="card"><h2>Venue</h2><p>Gowreenandhanam</p>
+</div>
+
+<div class="card"><h2>Address</h2><p>ARA 249<br>Edagramom<br>Karumom<br>695002</p>
+</div>
+
+<div class="card"><h2>Date & Time</h2><p>Saturday<br>08 August 2026<br>09:00 AM onwards</p>
+</div>
+
+<div class="card map-card">
+<a href="https://www.google.com/maps/place/ARA+249/@8.4576863,76.9737817,17z/data=!3m1!4b1!4m6!3m5!1s0x3b05bb00477f9a97:0xd2a487edd14d827c!8m2!3d8.4576863!4d76.9763566!16s%2Fg%2F11z0726gcw" target="_blank">
+<iframe loading="lazy" src="https://maps.google.com/maps?q=8.4576863,76.9763566&z=16&output=embed"></iframe></a>
+</div>
+
+</div>
+
+<footer>
+<img src="logo.png" class="footer-logo">
+</footer>
+</div>
+</body>
+</html>
