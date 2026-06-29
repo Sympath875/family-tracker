@@ -31,54 +31,7 @@ body{
   color:var(--text);
   padding:20px;
 }
-.nav-btn{
-    position:fixed;
-    top:18px;
-    left:18px;
 
-    width:60px;
-    height:60px;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    text-decoration:none;
-    color:#234B43;
-
-    background:rgba(255,255,255,.20);
-    border:1.5px solid rgba(255,255,255,.45);
-    border-radius:20px;
-
-    backdrop-filter:blur(30px) saturate(220%);
-    -webkit-backdrop-filter:blur(30px) saturate(220%);
-
-    box-shadow:
-        0 10px 35px rgba(0,0,0,.20),
-        inset 0 1px 1px rgba(255,255,255,.75),
-        inset 0 -8px 20px rgba(255,255,255,.08);
-
-    transition:all .35s ease;
-
-    z-index:999999;   
-}
-
-.nav-btn:hover{
-    transform:translateY(-3px) scale(1.06);
-    background:rgba(255,255,255,.28);
-    box-shadow:
-        0 18px 45px rgba(0,0,0,.22),
-        inset 0 1px 2px rgba(255,255,255,.9);
-}
-
-.nav-btn:active{
-    transform:scale(.95);
-}
-
-.nav-btn svg{
-    width:28px;
-    height:28px;
-}
 .container{
   max-width:1100px;
   margin:auto;
@@ -180,16 +133,6 @@ footer{text-align:center;margin-top:60px;padding-bottom:20px}
 </style>
 </head>
 <body>
-  
-<a href="index.html" class="nav-btn" title="Home">
-
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-stroke="currentColor" stroke-width="2.5">
-<path stroke-linecap="round" stroke-linejoin="round"
-d="M10 20v-6h4v6m5-8.5L12 4 5 11.5"/>
-</svg>
-
-</a>
   
 <div class="container">
 
