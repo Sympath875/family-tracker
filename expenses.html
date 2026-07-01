@@ -106,10 +106,51 @@ body{
   font-size:1rem;
 }
 
+.expense-details{
+
+    margin-top:8px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4px;
+
+    color:#64748b;
+
+    font-size:.9rem;
+
+}
+
+.expense-details strong{
+
+    color:var(--primary);
+
+}
+
 .expense-amount{
   color:var(--soft-red);
   font-weight:700;
   font-size:1.1rem;
+}
+
+.mode{
+    display:inline-block;
+    padding:2px 8px;
+    border-radius:999px;
+    font-size:.8rem;
+    font-weight:600;
+    margin-left:4px;
+}
+
+.mode.gpay{
+    background:#E8F5E9;
+    color:#2E7D32;
+}
+
+.mode.cash{
+    background:#FFF8E1;
+    color:#C28A00;
 }
 
 .last-updated{
@@ -129,11 +170,11 @@ body{
   }
 }
 footer{text-align:center;margin-top:60px;padding-bottom:20px}
-.footer-logo{height:50px;width:auto;opacity:.9;pointer-events: none;user-select: none;-webkit-user-drag: none;}
+.footer-logo{height:50px;width:auto;opacity:.9}
 </style>
 </head>
 <body>
-  
+
 <div class="container">
 
   <div class="hero">
@@ -196,9 +237,18 @@ async function loadExpenses(){
     const cols = row.split(",");
 
     return {
-      purpose:(cols[0] || "").trim(),
-      amount:Number(cols[1]) || 0
-    };
+
+  purpose: (cols[0] || "").trim(),
+
+  amount: Number(cols[1]) || 0,
+
+  paidTo: (cols[2] || "").trim(),
+
+  mode: (cols[3] || "").trim(),
+
+  date: (cols[4] || "").trim()
+
+};
   }).reverse();
 }
 
@@ -251,19 +301,39 @@ function renderExpenses(){
 
   expenses.forEach(exp=>{
 
-    container.innerHTML += `
-      <div class="expense-card">
+container.innerHTML += `
+
+<div class="expense-card">
+
+    <div>
 
         <div class="expense-purpose">
-          ${exp.purpose}
+            ${exp.purpose}
         </div>
 
-        <div class="expense-amount">
-          ₹${exp.amount.toLocaleString()}
+        <div class="expense-details">
+
+            <span><strong>Paid To:</strong> ${exp.paidTo}</span>
+
+            <span><strong>Mode:</strong>
+<span class="mode ${exp.mode.toLowerCase()}">
+${exp.mode}
+</span>
+</span>
+
+            <span><strong>Date:</strong> ${exp.date}</span>
+
         </div>
 
-      </div>
-    `;
+    </div>
+
+    <div class="expense-amount">
+        ₹${exp.amount.toLocaleString()}
+    </div>
+
+</div>
+
+`;;
   });
 
   document.getElementById("lastUpdated")
