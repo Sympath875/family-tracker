@@ -112,21 +112,7 @@ body{
  .info-grid{grid-template-columns:1fr}
  .committee{grid-column:auto}
 }
-.page-blur{
 
-    position:fixed;
-    inset:0;
-
-    backdrop-filter:blur(28px);
-    -webkit-backdrop-filter:blur(28px);
-
-    background:rgba(246,244,238,0.18);
-
-    z-index:9999;
-
-    pointer-events:all;
-
-}
 </style>
 </head>
 <body>
@@ -214,6 +200,5 @@ function updateTime() {
 updateTime();
 setInterval(updateTime, 60000);
 </script>
-<div class="page-blur"></div>
 </body>
 </html>
