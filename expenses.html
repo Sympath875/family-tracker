@@ -1,360 +1,83 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Expenses - Get Together 2026</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
-
 <style>
-:root{
-  --bg:#F6F4EE;
-  --primary:#234B43;
-  --soft-green:#2E7D32;
-  --soft-red:#D95C5C;
-  --text:#1E293B;
-  --card:rgba(255,255,255,.78);
-}
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins',Poppins;
-}
-
-body{
-  background:var(--bg);
-  color:var(--text);
-  padding:20px;
-}
-
-.container{
-  max-width:1100px;
-  margin:auto;
-}
-
-.hero{
-  text-align:center;
-  padding:25px 0 35px;
-}
-
-.hero h1{
-  color:var(--primary);
-  font-size:2.4rem;
-}
-
-.summary{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:20px;
-  margin-bottom:35px;
-}
-
-.card{
-  background:var(--card);
-  backdrop-filter:blur(14px);
-  border-radius:20px;
-  padding:24px;
-  box-shadow:0 10px 30px rgba(0,0,0,.05);
-}
-
-.card-value{
-  font-size:2rem;
-  font-weight:700;
-}
-
-.spent-value{
-  color:var(--soft-red);
-}
-
-.balance-value{
-  color:var(--soft-green);
-}
-
-.card-label{
-  margin-top:8px;
-  color:#64748b;
-}
-
-.section-title{
-  margin-bottom:20px;
-  color:var(--primary);
-}
-
-.expense-card{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:white;
-  border-radius:18px;
-  padding:18px 24px;
-  margin-bottom:12px;
-  box-shadow:0 5px 20px rgba(0,0,0,.05);
-  transition:transform .2s ease;
-}
-
-.expense-card:hover{
-  transform:translateY(-2px);
-}
-
-.expense-purpose{
-  font-weight:500;
-  font-size:1rem;
-}
-
-.expense-details{
-
-    margin-top:8px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:4px;
-
-    color:#64748b;
-
-    font-size:.9rem;
-
-}
-
-.expense-details strong{
-
-    color:var(--primary);
-
-}
-
-.expense-amount{
-  color:var(--soft-red);
-  font-weight:700;
-  font-size:1.1rem;
-}
-
-.mode{
-    display:inline-block;
-    padding:2px 8px;
-    border-radius:999px;
-    font-size:.8rem;
-    font-weight:600;
-    margin-left:4px;
-}
-
-.mode.gpay{
-    background:#E8F5E9;
-    color:#2E7D32;
-}
-
-.mode.cash{
-    background:#FFF8E1;
-    color:#C28A00;
-}
-
-.last-updated{
-  text-align:center;
-  margin-top:25px;
-  color:#64748b;
-  font-size:.9rem;
-}
-
-@media(max-width:768px){
-  .hero h1{
-    font-size:2rem;
-  }
-
-  .expense-card{
-    padding:16px;
-  }
-}
-footer{text-align:center;margin-top:60px;padding-bottom:20px}
-.footer-logo{height:50px;width:auto;opacity:.9}
+:root{--bg:#F6F4EE;--primary:#234B43;--card:rgba(255,255,255,.78);--green:#2E7D32;--red:#D95C5C}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+body{background:var(--bg);padding:20px;color:#1E293B}
+.container{max-width:1100px;margin:auto}
+.hero{text-align:center;padding:25px 0 35px}
+.hero h1{color:var(--primary)}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-bottom:30px}
+.card{background:var(--card);backdrop-filter:blur(14px);padding:22px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.05)}
+.card-value{font-size:2rem;font-weight:700}
+.spent{color:var(--red)} .bal{color:var(--green)}
+.committee{margin-bottom:28px}
+.committee-header{display:flex;justify-content:space-between;align-items:center;margin:14px 0}
+.committee-name{font-size:1.25rem;font-weight:700;color:var(--primary)}
+.committee-total{font-weight:700}
+details{background:white;border-radius:18px;padding:8px 18px;box-shadow:0 5px 20px rgba(0,0,0,.05)}
+summary{cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+.expense{display:flex;justify-content:space-between;padding:14px 0;border-top:1px solid #eee}
+.meta{font-size:.9rem;color:#64748b;margin-top:5px;display:flex;flex-direction:column;gap:3px}
+.last{text-align:center;margin:30px 0 15px;color:#64748b}
+footer{text-align:center}.footer-logo{height:50px}
 </style>
 </head>
 <body>
-
 <div class="container">
-
-  <div class="hero">
-    <h1>Get-together 2026</h1>
-    <p>Expenses</p>
-  </div>
-
-  <div class="summary">
-
-    <div class="card">
-      <div id="totalSpent" class="card-value spent-value">₹0</div>
-      <div class="card-label">Total Spent</div>
-    </div>
-
-    <div class="card">
-      <div id="balance" class="card-value balance-value">₹0</div>
-      <div class="card-label">Balance</div>
-    </div>
-
-  </div>
-
-  <h2 class="section-title">Expense Ledger</h2>
-
-  <div id="expenseContainer"></div>
-
-  <div id="lastUpdated" class="last-updated">
-    Last updated: --
-  </div>
-<footer>
-<img src="logo.png" alt="Logo" class="footer-logo">
-</footer>
-
+<div class="hero"><h1>Get-together 2026</h1><p>Expenses</p></div>
+<div class="summary">
+<div class="card"><div id="spent" class="card-value spent">₹0</div><div>Total Spent</div></div>
+<div class="card"><div id="balance" class="card-value bal">₹0</div><div>Balance</div></div>
 </div>
-
+<div id="groups"></div>
+<div id="last" class="last">Last Updated: --</div>
+<footer><img src="logo.png" class="footer-logo"></footer>
+</div>
 <script>
+const EXPENSE_URL="https://docs.google.com/spreadsheets/d/1qTkwlWyNS2w9KrJizZiJB5hzr17G5uGFt20vMf0p1-8/export?format=csv&gid=1425930218";
+const CONTRIBUTION_URL="https://docs.google.com/spreadsheets/d/1qTkwlWyNS2w9KrJizZiJB5hzr17G5uGFt20vMf0p1-8/export?format=csv&gid=0";
+let totalCollected=0;
 
-const EXPENSE_URL = "https://docs.google.com/spreadsheets/d/1qTkwlWyNS2w9KrJizZiJB5hzr17G5uGFt20vMf0p1-8/export?format=csv&gid=1425930218";
-
-const CONTRIBUTION_URL = "https://docs.google.com/spreadsheets/d/1qTkwlWyNS2w9KrJizZiJB5hzr17G5uGFt20vMf0p1-8/export?format=csv&gid=0";
-
-let expenses = [];
-let totalCollected = 0;
-
-async function loadExpenses(){
-
-  if(EXPENSE_URL.includes("PASTE")) return;
-
-  const response =
-    await fetch(EXPENSE_URL + "&t=" + Date.now());
-
-  const csv = await response.text();
-
-  const rows = csv
-    .trim()
-    .split(/\r?\n/)
-    .slice(1);
-
-  expenses = rows.map(row=>{
-
-    const cols = row.split(",");
-
-    return {
-
-  purpose: (cols[0] || "").trim(),
-
-  amount: Number(cols[1]) || 0,
-
-  paidTo: (cols[2] || "").trim(),
-
-  mode: (cols[3] || "").trim(),
-
-  date: (cols[4] || "").trim()
-
-};
-  }).reverse();
+async function csv(url){
+ const t=await (await fetch(url+"&t="+Date.now())).text();
+ return t.trim().split(/\r?\n/).slice(1).map(r=>r.split(","));
 }
-
-async function loadContributions(){
-
-  if(CONTRIBUTION_URL.includes("PASTE")){
-    totalCollected = 0;
-    return;
-  }
-
-  const response =
-    await fetch(CONTRIBUTION_URL + "&t=" + Date.now());
-
-  const csv = await response.text();
-
-  const rows = csv
-    .trim()
-    .split(/\r?\n/)
-    .slice(1);
-
-  totalCollected = rows.reduce((sum,row)=>{
-
-    const cols = row.split(",");
-
-    return sum + (Number(cols[3]) || 0);
-
-  },0);
+async function load(){
+ const e=await csv(EXPENSE_URL);
+ const c=await csv(CONTRIBUTION_URL);
+ totalCollected=c.reduce((s,r)=>s+(Number(r[3])||0),0);
+ const ex=e.map(r=>({purpose:r[0],amount:+r[1]||0,tag:r[2]||"Miscellaneous",paid:r[3]||"",mode:r[4]||"",date:r[5]||""}));
+ render(ex);
 }
-
-function renderExpenses(){
-
-  const container =
-    document.getElementById("expenseContainer");
-
-  container.innerHTML = "";
-
-  const totalSpent =
-    expenses.reduce((s,e)=>s+e.amount,0);
-
-  const balance =
-    totalCollected - totalSpent;
-
-  document.getElementById("totalSpent")
-    .textContent =
-      `₹${totalSpent.toLocaleString()}`;
-
-  document.getElementById("balance")
-    .textContent =
-      `₹${balance.toLocaleString()}`;
-
-  expenses.forEach(exp=>{
-
-container.innerHTML += `
-
-<div class="expense-card">
-
-    <div>
-
-        <div class="expense-purpose">
-            ${exp.purpose}
-        </div>
-
-        <div class="expense-details">
-
-            <span><strong>Paid To:</strong> ${exp.paidTo}</span>
-
-            <span><strong>Mode:</strong>
-<span class="mode ${exp.mode.toLowerCase()}">
-${exp.mode}
-</span>
-</span>
-
-            <span><strong>Date:</strong> ${exp.date}</span>
-
-        </div>
-
-    </div>
-
-    <div class="expense-amount">
-        ₹${exp.amount.toLocaleString()}
-    </div>
-
-</div>
-
-`;;
+function render(exp){
+ const groups={};
+ let spent=0;
+ exp.forEach(x=>{spent+=x.amount;(groups[x.tag]??=[]).push(x);});
+ document.getElementById("spent").textContent="₹"+spent.toLocaleString();
+ document.getElementById("balance").textContent="₹"+(totalCollected-spent).toLocaleString();
+ const out=document.getElementById("groups");out.innerHTML="";
+ Object.keys(groups).forEach(tag=>{
+  const subtotal=groups[tag].reduce((s,x)=>s+x.amount,0);
+  let html=`<div class="committee"><div class="committee-header"><div class="committee-name">${tag}</div><div class="committee-total">₹${subtotal.toLocaleString()}</div></div><details open><summary>View Expenses</summary>`;
+  groups[tag].forEach(x=>{
+   html+=`<div class="expense"><div><strong>${x.purpose}</strong><div class="meta"><span>Paid To: ${x.paid}</span><span>Mode: ${x.mode}</span><span>Date: ${x.date}</span></div></div><strong>₹${x.amount.toLocaleString()}</strong></div>`;
   });
-
-  document.getElementById("lastUpdated")
-    .textContent =
-      "Last updated: " +
-      new Date().toLocaleString();
+  html+="</details></div>";
+  out.innerHTML+=html;
+ });
+ document.getElementById("last").textContent="Last Updated: "+new Date().toLocaleString("en-IN");
 }
-
-async function refreshData(){
-
-  await loadExpenses();
-  await loadContributions();
-
-  renderExpenses();
-}
-
-refreshData();
-
-setInterval(refreshData,60000);
-
+load();setInterval(load,60000);
 </script>
-
 </body>
 </html>
