@@ -119,6 +119,38 @@ body{
 
 }
 
+.progress{
+    width:100%;
+    height:8px;
+    background:#E5E7EB;
+    border-radius:999px;
+    overflow:hidden;
+    margin-top:16px;
+}
+
+.progress-fill{
+    height:100%;
+    width:0%;
+    border-radius:999px;
+    transition:width .5s ease;
+}
+
+.food-fill{
+    background:#E84B3D;
+}
+
+.decor-fill{
+    background:#AD8AB3;
+}
+
+.programme-fill{
+    background:#4682B4;
+}
+
+.misc-fill{
+    background:#7D8082;
+}
+
 .collected{
 
     color:var(--primary);
@@ -277,48 +309,56 @@ Pending
 
 <div class="card">
 
-<div id="food" class="card-value food">₹0</div>
+<div id="food" class="card-value food">₹0 / ₹14500</div>
 
 <div class="card-label">
+Food Committee
+</div>
 
-Food committee
-
+<div class="progress">
+    <div id="foodBar" class="progress-fill food-fill"></div>
 </div>
 
 </div> 
 
 <div class="card">
 
-<div id="decor" class="card-value decor">₹0</div>
+<div id="decor" class="card-value decor">₹0 / ₹14500</div>
 
 <div class="card-label">
+Decoration Committee
+</div>
 
-Decoration committee
-
+<div class="progress">
+    <div id="decorBar" class="progress-fill decor-fill"></div>
 </div>
 
 </div>
 
 <div class="card">
 
-<div id="programme" class="card-value programme">₹0</div>
+<div id="programme" class="card-value programme">₹0 / ₹14500</div>
 
 <div class="card-label">
+Programme Committee
+</div>
 
-Programme committee
-
+<div class="progress">
+    <div id="programmeBar" class="progress-fill programme-fill"></div>
 </div>
 
 </div>
 
 <div class="card">
 
-<div id="misc" class="card-value misc">₹0</div>
+<div id="misc" class="card-value misc">₹0 / ₹14500</div>
 
 <div class="card-label">
-
 Miscellaneous
+</div>
 
+<div class="progress">
+    <div id="miscBar" class="progress-fill misc-fill"></div>
 </div>
 
 </div>
@@ -371,6 +411,11 @@ Column B : Amount
 const EXPENSE_URL =
 "https://docs.google.com/spreadsheets/d/1qTkwlWyNS2w9KrJizZiJB5hzr17G5uGFt20vMf0p1-8/export?format=csv&gid=1425930218";
 
+const FOOD_BUDGET = 14500;
+const DECOR_BUDGET = 5000;
+const PROGRAMME_BUDGET = 3500;
+const MISC_BUDGET = 2000;
+
 async function loadData(){
 
 if(
@@ -421,11 +466,37 @@ collected += Number(cols[3]) || 0;
 
 let expenses = 0;
 
+let foodSpent = 0;
+let decorSpent = 0;
+let programmeSpent = 0;
+let miscSpent = 0;
+
 expenseRows.forEach(row=>{
 
-const cols = row.split(",");
+    const cols = row.split(",");
 
-expenses += Number(cols[1]) || 0;
+    const amount = Number(cols[1]) || 0;
+
+    const committee = (cols[2] || "").toLowerCase();
+
+    expenses += amount;
+
+    if(committee.includes("food"))
+        foodSpent += amount;
+
+    else if(
+        committee.includes("decor")
+    )
+        decorSpent += amount;
+
+    else if(
+        committee.includes("programme") ||
+        committee.includes("program")
+    )
+        programmeSpent += amount;
+
+    else
+        miscSpent += amount;
 
 });
 
@@ -448,6 +519,30 @@ document.getElementById("balance").textContent =
 
 document.getElementById("pending").textContent =
 "₹" + pending.toLocaleString();
+
+document.getElementById("food").textContent =
+`₹${foodSpent.toLocaleString()} / ₹${FOOD_BUDGET.toLocaleString()}`;
+
+document.getElementById("decor").textContent =
+`₹${decorSpent.toLocaleString()} / ₹${DECOR_BUDGET.toLocaleString()}`;
+
+document.getElementById("programme").textContent =
+`₹${programmeSpent.toLocaleString()} / ₹${PROGRAMME_BUDGET.toLocaleString()}`;
+
+document.getElementById("misc").textContent =
+`₹${miscSpent.toLocaleString()} / ₹${MISC_BUDGET.toLocaleString()}`;
+
+document.getElementById("foodBar").style.width =
+Math.min(foodSpent/FOOD_BUDGET*100,100) + "%";
+
+document.getElementById("decorBar").style.width =
+Math.min(decorSpent/DECOR_BUDGET*100,100) + "%";
+
+document.getElementById("programmeBar").style.width =
+Math.min(programmeSpent/PROGRAMME_BUDGET*100,100) + "%";
+
+document.getElementById("miscBar").style.width =
+Math.min(miscSpent/MISC_BUDGET*100,100) + "%";
 
 updateTime();
 
