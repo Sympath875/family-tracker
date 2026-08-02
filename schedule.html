@@ -1,10 +1,13 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RoK 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -12,78 +15,50 @@
 --primary:#234B43;
 --secondary:#4A7C6A;
 --text:#1E293B;
---success:#2E7D32;
---warning:#C28A00;
---pending:#8A8A8A;
 --card:rgba(255,255,255,.78);}
 
-*{box-sizing:border-box}body{margin:0;font-family:Poppins,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
-body:before,body:after{content:"";position:fixed;width:420px;height:420px;border-radius:50%;filter:blur(80px);opacity:.25;z-index:-1}
-body:before{background:#7bb39d;left:-120px;top:-100px}
-body:after{background:#d7b85c;right:-120px;bottom:-100px}
-header{text-align:center;padding:60px 20px 30px}
-h1{font-size:3rem;color:var(--primary);margin:0}
-header p{color:#556}
-.container{max-width:900px;margin:auto;padding:20px}
-.item{display:grid;grid-template-columns:120px 1fr;gap:24px;align-items:center;margin:28px 0}
-.time{font-weight:700;color:var(--primary);text-align:right}
-.card{position:relative;background:var(--card);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.7);border-radius:24px;padding:24px;overflow:hidden;box-shadow:0 20px 40px rgba(35,75,67,.12);transition:.35s}
-.card:before{content:"";position:absolute;left:-50%;top:0;width:40%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-25deg);transition:.8s}
-.card:hover:before{left:130%}.card:hover{transform:translateY(-8px)}
-.title{font-size:1.2rem;font-weight:700;color:var(--primary)}
-.desc{margin-top:8px;color:#556}
-.icon{font-size:2rem;margin-right:10px}
+*{box-sizing:border-box}
+body{margin:0;font-family:Poppins,sans-serif;background:radial-gradient(circle at top,rgba(74,124,106,.08),transparent 45%),var(--bg);color:var(--text);display:flex;justify-content:center}
+.container{max-width:900px;width:100%;padding:60px 20px;text-align:center}
+h1{color:var(--primary);font-size:3rem;margin:0}
+.subtitle{color:var(--secondary);letter-spacing:3px;text-transform:none;margin:10px 0 40px}
+.detail-card{width:min(420px,90vw);border-radius:22px;box-shadow:0 15px 45px rgba(0,0,0,.18);transition:.3s}
+.detail-card:hover{transform:translateY(-6px)}
+.buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.btn{padding:12px 20px;border-radius:16px;background:var(--card);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.45);text-decoration:none;color:var(--primary);font-weight:bold}
 @media(max-width:700px){.item{grid-template-columns:1fr}.time{text-align:left;padding-left:10px}}
 footer{text-align:center;margin-top:60px;padding-bottom:20px}
 .footer-logo{height:50px;width:auto;opacity:.9;pointer-events: none;user-select: none;-webkit-user-drag: none;}
-.page-blur{
 
-    position:fixed;
-    inset:0;
-
-    backdrop-filter:blur(28px);
-    -webkit-backdrop-filter:blur(28px);
-
-    background:rgba(246,244,238,0.18);
-
-    z-index:9999;
-
-    pointer-events:all;
-
-}
 </style>
 </head>
 
 <body>
-<header>
-<h1>Get-together 2026</h1>
-<p>Programme schedule</p>
-</header>
-
 <div class="container">
-<div class="item"><div class="time">08:30 AM</div><div class="card"><div class="title"><span class="icon">👥</span>Welcome & Registration</div><div class="desc">Guests arrive, register and receive welcome kits.</div></div></div>
+<h1>Get-together 2026</h1>
+<div class="subtitle">Invitation</div>
 
-<div class="item"><div class="time">09:15 AM</div><div class="card"><div class="title"><span class="icon">🙏</span>Opening Prayer</div><div class="desc">Prayer and inaugural blessings.</div></div></div>
+<a href="programme.png" target="_blank">
+<img class="detail-card" src="programme.png" alt="Programme">
+</a>
 
-<div class="item"><div class="time">10:00 AM</div><div class="card"><div class="title"><span class="icon">🍽️</span>Breakfast</div><div class="desc">Traditional breakfast and conversations.</div></div></div>
-
-<div class="item"><div class="time">11:00 AM</div><div class="card"><div class="title"><span class="icon">🎲</span>Family Games</div><div class="desc">Fun games for children and adults.</div></div></div>
-
-<div class="item"><div class="time">01:00 PM</div><div class="card"><div class="title"><span class="icon">🍛</span>Lunch</div><div class="desc">Buffet lunch with family.</div></div></div>
-
-<div class="item"><div class="time">03:00 PM</div><div class="card"><div class="title"><span class="icon">🎤</span>Cultural Programme</div><div class="desc">Songs, dance and performances.</div></div></div>
-
-<div class="item"><div class="time">05:30 PM</div><div class="card"><div class="title"><span class="icon">🏆</span>Awards & Felicitations</div><div class="desc">Recognizing achievements and memories.</div></div></div>
-
-<div class="item"><div class="time">06:30 PM</div><div class="card"><div class="title"><span class="icon">📸</span>Group Photo & Closing</div><div class="desc">Vote of thanks followed by family photograph.</div></div></div>
-
-<div class="item"><div class="time">06:30 PM</div><div class="card"><div class="title"><span class="icon">📸</span>Group Photo & Closing</div><div class="desc">Vote of thanks followed by family photograph.</div></div></div>
-
+<div class="buttons">
+<a class="btn" href="programme.png" download>Download PNG</a>
 </div>
+
+<a href="games.png" target="_blank">
+<img class="detail-card" src="games.png" alt="Games">
+</a>
+
+<div class="buttons">
+<a class="btn" href="invitation.png" download>Download PNG</a>
+</div>    
 
 <footer>
 <img src="logo.png" alt="Logo" class="footer-logo">
 </footer>
-<div class="page-blur"></div>
+
+    
+</div>
 </body>
 </html>
