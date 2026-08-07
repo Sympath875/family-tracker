@@ -33,6 +33,12 @@
 }
 
 body{
+    opacity:0;
+    transform:translateY(10px);
+    transition:opacity .35s ease,transform .35s ease;
+}
+body.loaded{opacity:1;transform:none;}
+body{
     background:var(--bg);
     color:var(--text);
     padding:20px;
@@ -145,11 +151,11 @@ content:"";
 position:absolute;
 top:-50px;
 right:-50px;
-width:140px;
-height:140px;
-background:rgba(232,75,61,.10);
+width:180px;
+height:180px;
+background:rgba(232,75,61,.18);
 border-radius:50%;
-filter:blur(25px);
+filter:blur(35px);
 pointer-events:none;
 }
 
@@ -158,11 +164,11 @@ content:"";
 position:absolute;
 top:-50px;
 right:-50px;
-width:140px;
-height:140px;
-background:rgba(173,138,179,.10);
+width:180px;
+height:180px;
+background:rgba(173,138,179,.18);
 border-radius:50%;
-filter:blur(25px);
+filter:blur(35px);
 pointer-events:none;
 }
 
@@ -171,11 +177,11 @@ content:"";
 position:absolute;
 top:-50px;
 right:-50px;
-width:140px;
-height:140px;
-background:rgba(70,130,180,.10);
+width:180px;
+height:180px;
+background:rgba(70,130,180,.18);
 border-radius:50%;
-filter:blur(25px);
+filter:blur(35px);
 pointer-events:none;
 }
 
@@ -184,11 +190,11 @@ content:"";
 position:absolute;
 top:-50px;
 right:-50px;
-width:140px;
-height:140px;
-background:rgba(125,128,130,.10);
+width:180px;
+height:180px;
+background:rgba(125,128,130,.18);
 border-radius:50%;
-filter:blur(25px);
+filter:blur(35px);
 pointer-events:none;
 }
 
@@ -641,6 +647,7 @@ loadData();
 
 setInterval(loadData,60000);
 setInterval(updateElapsed,1000);
+window.addEventListener("load",()=>document.body.classList.add("loaded"));
 
 </script>
 
