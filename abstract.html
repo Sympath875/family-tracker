@@ -603,17 +603,17 @@ Math.min(foodSpent/FOOD_BUDGET*100,100) + "%";
 
 setTimeout(()=>{
 document.getElementById("decorBar").style.width =
-Math.min(foodSpent/FOOD_BUDGET*100,100) + "%";
+Math.min(decorSpent/DECOR_BUDGET*100,100) + "%";
 },150);
 
 setTimeout(()=>{
 document.getElementById("programmeBar").style.width =
-Math.min(foodSpent/FOOD_BUDGET*100,100) + "%";
+Math.min(programmeSpent/PROGRAMME_BUDGET*100,100) + "%";
 },150);
 
 setTimeout(()=>{
 document.getElementById("miscBar").style.width =
-Math.min(foodSpent/FOOD_BUDGET*100,100) + "%";
+Math.min(miscSpent/MISC_BUDGET*100,100) + "%";
 },150);
 
 updateTime();
@@ -639,7 +639,7 @@ function updateElapsed(){
 
 loadData();
 
-setInterval(loadData,20000);
+setInterval(loadData,60000);
 setInterval(updateElapsed,1000);
 
 </script>
